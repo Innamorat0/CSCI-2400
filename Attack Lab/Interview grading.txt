@@ -1,0 +1,8 @@
+1) show buffer in gebuff - dissas in gdb/objdump
+2) how to get rsp address - look at rsp using 'ir %rsp' right after getbuff allocation
+3) how to write assembley instructions - 'gcc -c assem.s, objdump -d assem.o' to get hex or look in pdf
+4) show where gadgets are - objdump then go to start-farm, find hex address
+
+Email: 
+subject: [attackLab] [targetNumber]
+note with your name

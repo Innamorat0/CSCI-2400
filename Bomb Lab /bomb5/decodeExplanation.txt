@@ -1,0 +1,44 @@
+All your base are belong to us. //string at memory location 0x402350 "All your base are belong to us."
+
+0 1 1 2 3 5 //read 6 integers a[0] = 0, a[1] = 1, adding value to previous value
+
+0 551       //Two integers, first less than 7, switch statement jumps to [8*rax + 0x4023a0]
+            //follow logic of switch statement jumps adding/substracting values given
+            //strt with 0x331;817 sub 0xd1;209 add 0x300;768 sub 0x339;825 add 0x339;825 sub 0x339;825 add 0x339;825 sub 0x339;825 to get 551.
+
+10 37       //p (char *) 0x4025b3 (shows its looking for %d %d 2 ints again), 
+            //first less than or equal to 14. Passes first input, 0, and 14 to func4
+            //checks if return from func4 is 37 and that second arg is 37
+            //calculating low + (high - low) / 2
+            //if x < average func4(x, low, average - 1)
+            //if x > average func4(x, average + 1, high)
+            //if x == average return average
+            // Guess 7, so to get the required result of 37 we need 30 more. All the guesses will be either less than 7 or more than 7. Since 7 * 3 = 21 and that can't give us 30 it means the number has to be greater than 7. Second guess is thus going to be (8 + 14) / 2 = 11, making our sum 18 with 19 more to go. If the number was above 11 that would mean we overshoot the target, so the number must be more than 7 and less than 11. Third guess is thus (8 + 10) / 2 = 9 which brings the sum to 27 with 10 more to go and just a single guess, so that means the number is 10
+
+jdoefg      //looking for a string of length 6
+            //input ANDed with 0xF to get the lowest 4 bits used to select letter from 
+            //string array stored at at 0x4023e0 
+	    	//compares value to string at 0x402396 "oilers"
+            //Need offsets A(10), 4, F(15), 5, 6, 7
+	    	//ASCII values with last byte A, 4, F, 5, 6, 7
+	    	//Those can be j, d, o, e, f, g
+            
+            //while(rax != 6) {
+        	//	  ecx = &(rbx + rax);
+        	//	  rdx = %cl; // last byte of each char
+        	//
+        	//	  edx &= 0xf;
+        	//	  edx = &(rdx + 0x4024b0);
+        	//	  &(rsp + 10 + rax) = dl;
+        	//	  rax += 1;
+        	//}
+
+5 4 3 6 2 1 //read 6 integers, linked list data structure statically placed in memory
+            //Display memory location of head of list and extend by 24 to see all nodes
+            // x/24dw 0x6032e0
+            //See that it asks for them in descending order so rearange
+            //Compute 7 - X to get the input value to defuse
+
+DrEvil      //Check phase_defused and see it asks for phase 4 input plus a string
+            //Add after phase 4 answer to enter secret
+35          //Want fun7 to return 6. Code for fun7 in seperate file

@@ -1,0 +1,26 @@
+Buff Size: 0x18 = 24 Bytes
+
+Phase1:
+ret addr: 0x004012bc
+
+
+Phase2:
+ret addr: 0x004012e8
+modify arg1 to be: 0x783cd2dd
+movq 0x783cd2dd, %rdi
+
+
+
+Phase3:
+ret addr: 0x0040
+
+
+
+
+Phase4:
+
+
+
+
+
+Phase5:

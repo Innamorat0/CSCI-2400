@@ -1,0 +1,110 @@
+Change data structure in cs1300bmp.h:
+-Change to 2D array of structs of shorts(R, G, B) instead of 3D array
+	int color[MAX_COLORS][MAX_DIM][MAX_DIM]; => pixel color[MAX_DIM][MAX_DIM];
+Reduces one (N) number of passes through the array to visit every value of every pixel
+
+-----------
+
+Change data structure in cs1300bmp.cc;
+-Changed .cc file to reflect new data structure
+	image -> color[COLOR_RED  ][row][col] = rarray[row * width + col]; for each color => 
+	image -> color[row][col].R = rarray[row * width + col]; for each color
+Removes an array access when converting image into data structure since it now accesses a variable in the struct instead of another layer of the array
+
+Make these array accesses with the n*i + j formula to speed up data access using memory locations
+
+	rarray[row * width + col] = image -> color[COLOR_RED  ][row][col]; for each color => 
+	rarray[row * width + col] = image -> color[row][col].R; for each color
+Additional removal of references to 3rd array layer and making them struct variable accesses
+
+------------
+
+Change to filters in FilterMain.cpp
+-add #include "immintrin.h" to allow for AVX2 register use
+-move all variable initialization outside loops
+-move constant values outside loops (int divisor = filter -> getDivisor();
+  									int height = (input -> height) - 1;
+  									int width = (input -> width) - 1;
+  									int *data = filter -> data;)
+
+-split into 2 cases since not all of them have a divisor that is > 1
+	if(divisor == 1) & if(divisor != 1) cases
+
+-flipped for loop order
+	col then row => row then col
+allows for use of cacheing of the array data for faster access
+
+-added collector variables (rval, gval, bval) to reduce accesses to final output array
+	output -> color[plane][row][col]
+	      = output -> color[plane][row][col]
+	      + (input -> color[plane][row + i - 1][col + j - 1] 
+		 * filter -> get(i, j) ); =>
+	rval += input -> color[mrow + i][mcol + j].R * data[i * 3 + j];
+
+-access array values in n*i + j formula to speed up data access
+	rval += input -> color[mrow + i][mcol + j].R * data[i * 3 + j];
+
+-Use lambda statements for slight speed increase over standard if statement
+	if ( output -> color[plane][row][col]  < 0 ) {
+	  output -> color[plane][row][col] = 0;
+	} =>
+	rval = (rval < 0) ? 0: rval;
+
+-Do final transfer of data to output at end of the loop to reduce number of times it is accessed
+	output -> color[row][col].R = rval;
+
+------------
+
+OpemMP:
+add #pragma omp parallel for
+outside 2 for loops in each divisor case to allow running of them on multiple cores for huge speed performance increase
+
+------------
+
+Change to MakeFile:
+old: 
+CXX	=g++
+CXXFLAGS= -g -O0 -fno-omit-frame-pointer -Wall
+
+new:
+CXX	=g++
+CXXFLAGS= -g -march=native -Ofast -funroll-loops -mavx2 -fno-omit-frame-pointer -Wall -fopenmp
+
+-change -O0 to -Ofast (slightly faster than -O3)
+Allows compiler to do optimizations of its own on code
+	"-Ofast: New in GCC 4.7, consists of -O3 plus -ffast-math, -fno-protect-parens, and -fstack-arrays. This option breaks strict standards compliance, and is not recommended for use."
+
+-Add -funroll-loops, gcc's build in dynamic loop unrolling 
+Didnt change performance really but doesnt hurt to have it
+
+-Add -march=native, enables CPU specific native support for flags/extensions (allows GCC to use AVX, SSE, MME and other registyer extensions) Vectorizes loops using the selected extensiomns if possible.
+
+-Add -mavx2 to allow testing/use of AVX2 registers
+
+-Add -fopenmp to allow for OpenMP use for multi core processing
+
+-Added test to be run after judge when making to easily tell if the algorithm becomes messed up
+
+goals: judge test
+	@echo "Done"
+
+------------
+
+Interview Grading:
+
+Code motion
+Inline function usage
+Data structure size
+Loop order
+Loop unrolling
+OpenMP
+Other
+
+# of pixels 
+# of calls to specific variables/functions
+# of stride
+
+
+
+
+	
